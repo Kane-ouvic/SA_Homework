@@ -2,35 +2,33 @@
 
 
 usage() {
-echo -n -e "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}
--i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:
-MD5 hashes to validate input files.\n-i: Input files.\n"
+echo -n -e "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...} -i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5: MD5 hashes to validate input files.\n-i: Input files.\n"
 }
 
 error_msg_1(){
-    echo "Error: Invalid arguments."
+    echo -n -e "Error: Invalid arguments." 1>&2
     usage
-    exit 0
+    exit 1
 }
 
 error_msg_2(){
-    echo "Error: Invalid values."
-    exit 0
+    echo -n -e "Error: Invalid values." 1>&2
+    exit 1
 }
 
 error_msg_3(){
-    echo "Error: Only one type of hash function is allowed."
-    exit 0
+    echo -n -e "Error: Only one type of hash function is allowed." 1>&2
+    exit 1
 }
 
 error_msg_4(){
-    echo "Error: Invalid checksum."
-    exit 0
+    echo -n -e "Error: Invalid checksum." 1>&2
+    exit 1
 }
 
 error_msg_5(){
-    echo "Error: Invalid file format."
-    exit 0
+    echo -n -e "Error: Invalid file format." 1>&2
+    exit 1
 }
 
 compare_nums(){
@@ -41,14 +39,14 @@ compare_nums(){
 
 compare_hash(){
     if [ "$1" != "$2" ]; then
-        echo -n -e "not same \n"
-        # error_msg_4
+        # echo -n -e "not same \n"
+        error_msg_4
         # exit
     fi
 }
 
 warning_msg(){
-    echo "Warning: user root already exists."
+    echo "Warning: user $1 already exists."
 }
 
 ask_msg(){
@@ -67,121 +65,168 @@ hash_args=()
 file_args=()
 input_args=($0)
 
-echo $0
+
+# read the input
+# echo $0
 for i in "$@" ; do
     input_args+=("$i")
 done
 
-# for ((i=0; i < ${#input_args[@]}; i++))
-# do
-#     ### 印出 array 的 key 及 value
-#     echo $i ${input_args[i]}
-# done
+choice_code=0
+hash_code=0
 
-# echo -n -e "=================================\n"
+
+# echo -n -e "==========================\n"
 
 # check the first args
 if [ "$1" = "-h" ]
 then
     usage
+    exit 0
 elif [ "$1" = "--md5" ]
 then
     # echo -n -e "-md5\n"
-
+    choice_code=1
     # check exist sha256
-    str=$*
-    substr='--sha256'
-    target=0
-    if [[ "$str" == *"$substr"* ]]; then
-        error_msg_3
-    fi
-    # ================================================
-    # check the code nums and files num  whether equal
+    # str=$*
+    # substr='--sha256'
+    # target=0
+    # if [[ "$str" == *"$substr"* ]]; then
+    #     error_msg_3
+    # fi
+
 
 elif [ "$1" = "--sha256" ]
 then
     # echo -n -e "-sha256\n"
-
+    choice_code=1
     # check exist md5
-    str=$*
-    substr='--md5'
-    if [[ "$str" == *"$substr"* ]]; then
-        error_msg_3
-    fi
+    # str=$*
+    # substr='--md5'
+    # if [[ "$str" == *"$substr"* ]]; then
+    #     error_msg_3
+    # fi
+elif [ "$1" = "-i" ]
+then
+    choice_code=2
 else
     error_msg_1
-    exit 0
+fi
+
+# echo -n -e "==========================\n"
+str=$*
+substr1='--md5'
+substr2='--sha256'
+substr3='-i'
+if [[ "$str" == *"$substr1"* ]] && [[ "$str" == *"$substr2"* ]]; then
+    error_msg_3
 fi
 
 
-# echo -n -e "=================================\n"
-# echo "-----------------------------------"
+
+
+if [[ "$str" == *"$substr1"* ]]; then
+    hash_code=1
+elif [[ "$str" == *"$substr2"* ]]; then
+    hash_code=2
+fi
+
+
+if [ $choice_code -eq 1 ]
+then
+    target=0
+    for ((i=1;; i++))
+    do
+        if [ "${input_args[i+1]}" = "-i" ]
+        then
+            break
+        fi
+        hash_args+=(${input_args[i+1]})
+        target=$(($i+2))
+    done
+
+    for ((i=1; i+target < ${#input_args[@]}; i++))
+    do
+        file_args+=(${input_args[i+target]})
+    done
+else
+    target=0
+    for ((i=1;; i++))
+    do
+        if [ "${input_args[i+1]}" = "--md5" ] || [ "${input_args[i+1]}" = "--sha256" ]
+        then
+            break
+        fi
+        # echo "${input_args[i+1]}"
+        file_args+=(${input_args[i+1]})
+        target=$(($i+2))
+    done
+
+    for ((i=1; i+target < ${#input_args[@]}; i++))
+    do
+        hash_args+=(${input_args[i+target]})
+    done
+fi
+
+# echo -n -e "==========================\n"
 
 # get hash and files
-target=0
-compare_string=""
-for ((i=1;; i++))
-do
-    if [ "${input_args[i+1]}" = "-i" ]
-    then
-        break
-    fi
-    echo "${input_args[i+1]}"
-    hash_args+=(${input_args[i+1]})
-    target=$(($i+2))
-done
+# target=0
+# compare_string=""
+# for ((i=1;; i++))
+# do
+#     if [ "${input_args[i+1]}" = "-i" ]
+#     then
+#         break
+#     fi
+#     # echo "${input_args[i+1]}"
+#     hash_args+=(${input_args[i+1]})
+#     target=$(($i+2))
+# done
 
-# echo -n -e "debug: /////////////////////////////// \n"
 # for ((i=1; i+target < ${#input_args[@]}; i++))
 # do
-#             ### 印出 array 的 key 及 value
-#             # echo ${input_args[i+target]}
 #     file_args+=(${input_args[i+target]})
 # done
 
-    # debug
-# echo -n -e "debug: **********************************\n"
-# echo -n -e "nums: ${#hash_args[@]}  ${#file_args[@]}\n"
-for ((i=0; i < ${#hash_args[@]}; i++))
-do
-        ### 印出 array 的 key 及 value
-    echo $i ${hash_args[i]}
-done
-for ((i=0; i < ${#file_args[@]}; i++))
-do
-        ### 印出 array 的 key 及 value
-    echo $i ${file_args[i]}
-done
+# echo -n -e "==========================\n"
+# # echo -n -e "nums: ${#hash_args[@]}  ${#file_args[@]}\n"
+# for ((i=0; i < ${#hash_args[@]}; i++))
+# do
+#         ### 印出 array 的 key 及 value
+#     echo $i ${hash_args[i]}
+# done
 
+# for ((i=0; i < ${#file_args[@]}; i++))
+# do
+#         ### 印出 array 的 key 及 value
+#     echo $i ${file_args[i]}
+# done
+
+# check the code nums and files num  whether equal
 compare_nums ${#hash_args[@]} ${#file_args[@]}
 
 
 
 
-# for ((i=0; i < ${#file_args[@]}; i++))
-# do
-#         ### 印出 array 的 key 及 value
-#     echo '' ${file_args[i]}
-# done
-
-if [ "$1" = "--md5" ]
+if [ $hash_code -eq 1 ]
 then
 
     for ((i=0; i < ${#file_args[@]}; i++))
     do
         md5_str=`md5 ${file_args[i]} | awk '{print $4}'`
         compare_hash ${hash_args[i]} $md5_str
-        echo $md5_str
+        # echo $md5_str
 
     done
 
-elif [ "$1" = "--sha256" ]
+elif [ $hash_code -eq 2 ]
 then
     for ((i=0; i < ${#file_args[@]}; i++))
     do
         sha256_str=`sha256 ${file_args[i]} | awk '{print $4}'`
         compare_hash ${hash_args[i]} $sha256_str
-        echo $sha256_str
+        # echo $sha256_str
 
     done
 fi
@@ -198,29 +243,24 @@ check_state=2
 
 for ((i=0; i < ${#file_args[@]}; i++))
 do
-        ### 印出 array 的 key 及 value
-    # echo $i ${file_args[i]}
 
-    str=`cat ${file_args[i]} | jq type`
-    if [[ "$str" == "" ]]; then
-        echo -n -e "Its not Json file \n"
-        # transform file to JSON
-        jq --slurp --raw-input --raw-output 'split("\n") | .[1:] | map(split(",")) |map({"username": .[0],"password": .[1], "shell": .[2], "groups": .[3]})' ${file_args[i]} > ${file_args[i]}.json && cat ${file_args[i]}.json | sed 's/\\r//g' > sample_${file_args[i]}.json && rm ${file_args[i]}.json
+    if cat ${file_args[i]} | jq type > /dev/null 2>&1
+    then
+        check_state=1
+    else
+        cat ${file_args[i]}  | grep -Ev '^[[:space:]]*(#|$)' > ${file_args[i]}_temp
+        jq --slurp --raw-input --raw-output 'split("\n") | .[1:] | map(split(",")) |map({"username": .[0],"password": .[1], "shell": .[2], "groups": .[3]})' ${file_args[i]}_temp > ${file_args[i]}.json && cat ${file_args[i]}.json | sed 's/\\r//g' > ${file_args[i]}_sample.json && rm ${file_args[i]}.json
         # judge if it can parse
-        judge_file_str=`cat sample_${file_args[i]}.json  | jq -r ".[] | .groups" | xargs echo | awk '{print $1}'`
+        judge_file_str=`cat ${file_args[i]}_sample.json  | jq -r ".[] | .groups" | xargs echo | awk '{print $1}'`
         if [ "$judge_file_str" = "null" ] || [ "$judge_file_str" = "" ] 
         then
-            echo -n -e "I cant parse \n"
+            # echo -n -e "I cant parse \n"
             # error msg
             error_msg_5
         else
-            echo -n -e "I can parse \n"
+            # echo -n -e "I can parse \n"
             check_state=2
         fi
-    else
-        echo -n -e "Its Json file \n"
-        # parse file
-        check_state=1
     fi
 
 
@@ -229,7 +269,7 @@ do
     then
         filename_json="${file_args[i]}"
     else
-        filename_json="sample_${file_args[i]}.json"
+        filename_json="${file_args[i]}_sample.json"
     fi
 
     OIFS="$IFS"
@@ -280,7 +320,7 @@ do
         done
     else
         total_nums=`awk 'END { print NR }' ${file_args[i]}`
-        echo $total_nums
+        # echo $total_nums
         for ((j=2; j <= ${total_nums}; j++))
         do
             ### 印出 array 的 key 及 value
@@ -288,14 +328,25 @@ do
             groups_table+=("$temp_str")
         done
     fi
+
+    # CSV delete the last element
+    if [ $check_state -eq 2 ]
+    then
+        last_index=$((${#username_table[@]}-1))
+        # echo $last_index
+        unset username_table[$last_index]
+        unset password_table[$last_index]
+        unset shell_table[$last_index]
+        unset groups_table[$last_index]
+    fi
 done
 
-# debug
-    for ((j=0; j < ${#username_table[@]}; j++))
-    do
-        ### 印出 array 的 key 及 value
-        echo $j ${username_table[j]} ${password_table[j]} ${shell_table[j]} ${groups_table[j]}
-    done
+# # debug
+#     for ((j=0; j < ${#username_table[@]}; j++))
+#     do
+#         ### 印出 array 的 key 及 value
+#         echo $j ${username_table[j]} ${password_table[j]} ${shell_table[j]} ${groups_table[j]}
+#     done
 
 
 # ask for create user
@@ -308,7 +359,7 @@ case $answer in
     exit 0
     ;;
     *)
-    echo "removing..."
+    exit 0
     ;;
 esac
 
@@ -319,10 +370,10 @@ for ((i=0; i < ${#username_table[@]}; i++))
 do
     if id -u "${username_table[i]}" >/dev/null 2>&1; then
         # echo "user exists"
-        warning_msg
+        warning_msg ${username_table[i]}
 
     else
-        echo $i ${username_table[i]} ${password_table[i]} ${shell_table[i]}
+        # echo $i ${username_table[i]} ${password_table[i]} ${shell_table[i]}
         pw useradd ${username_table[i]} -s ${shell_table[i]} # create user
         echo ${password_table[i]} | pw usermod -n ${username_table[i]} -h 0 # change password
         if [ "${groups_table[i]}" != "" ]
@@ -348,3 +399,5 @@ do
         fi
     fi
 done
+
+exit 0

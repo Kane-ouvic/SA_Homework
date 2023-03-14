@@ -1,9 +1,11 @@
 #!/bin/sh
 
-if [ "$1" = "-h" ]
-then
-    usage
-elif [ "$1" = "-md5" ]
-then
-    echo -n -e "-md5\n"
+username=()
+$json_string=`cat $1`
+
+echo $json_string
+if jq -e . >/dev/null 2>&1 <<<"$json_string"; then
+    echo "Parsed JSON successfully and got something other than false/null"
+else
+    echo "Failed to parse JSON, or got false/null"
 fi

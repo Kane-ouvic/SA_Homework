@@ -41,8 +41,8 @@ compare_nums(){
 
 compare_hash(){
     if [ "$1" != "$2" ]; then
-        echo -n -e "not same \n"
-        # error_msg_4
+        # echo -n -e "not same \n"
+        error_msg_4
         # exit
     fi
 }
@@ -67,18 +67,13 @@ hash_args=()
 file_args=()
 input_args=($0)
 
-echo $0
+
+# read the input
+# echo $0
 for i in "$@" ; do
     input_args+=("$i")
 done
 
-# for ((i=0; i < ${#input_args[@]}; i++))
-# do
-#     ### 印出 array 的 key 及 value
-#     echo $i ${input_args[i]}
-# done
-
-# echo -n -e "=================================\n"
 
 # check the first args
 if [ "$1" = "-h" ]
@@ -95,8 +90,7 @@ then
     if [[ "$str" == *"$substr"* ]]; then
         error_msg_3
     fi
-    # ================================================
-    # check the code nums and files num  whether equal
+
 
 elif [ "$1" = "--sha256" ]
 then
@@ -114,8 +108,6 @@ else
 fi
 
 
-# echo -n -e "=================================\n"
-# echo "-----------------------------------"
 
 # get hash and files
 target=0
@@ -126,43 +118,34 @@ do
     then
         break
     fi
-    echo "${input_args[i+1]}"
+    # echo "${input_args[i+1]}"
     hash_args+=(${input_args[i+1]})
     target=$(($i+2))
 done
 
-# echo -n -e "debug: /////////////////////////////// \n"
-# for ((i=1; i+target < ${#input_args[@]}; i++))
+for ((i=1; i+target < ${#input_args[@]}; i++))
+do
+    file_args+=(${input_args[i+target]})
+done
+
+# # echo -n -e "nums: ${#hash_args[@]}  ${#file_args[@]}\n"
+# for ((i=0; i < ${#hash_args[@]}; i++))
 # do
-#             ### 印出 array 的 key 及 value
-#             # echo ${input_args[i+target]}
-#     file_args+=(${input_args[i+target]})
+#         ### 印出 array 的 key 及 value
+#     echo $i ${hash_args[i]}
 # done
-
-    # debug
-# echo -n -e "debug: **********************************\n"
-# echo -n -e "nums: ${#hash_args[@]}  ${#file_args[@]}\n"
-for ((i=0; i < ${#hash_args[@]}; i++))
-do
-        ### 印出 array 的 key 及 value
-    echo $i ${hash_args[i]}
-done
-for ((i=0; i < ${#file_args[@]}; i++))
-do
-        ### 印出 array 的 key 及 value
-    echo $i ${file_args[i]}
-done
-
-compare_nums ${#hash_args[@]} ${#file_args[@]}
-
-
-
 
 # for ((i=0; i < ${#file_args[@]}; i++))
 # do
 #         ### 印出 array 的 key 及 value
-#     echo '' ${file_args[i]}
+#     echo $i ${file_args[i]}
 # done
+
+# check the code nums and files num  whether equal
+compare_nums ${#hash_args[@]} ${#file_args[@]}
+
+
+
 
 if [ "$1" = "--md5" ]
 then
@@ -171,7 +154,7 @@ then
     do
         md5_str=`md5 ${file_args[i]} | awk '{print $4}'`
         compare_hash ${hash_args[i]} $md5_str
-        echo $md5_str
+        # echo $md5_str
 
     done
 
@@ -181,7 +164,7 @@ then
     do
         sha256_str=`sha256 ${file_args[i]} | awk '{print $4}'`
         compare_hash ${hash_args[i]} $sha256_str
-        echo $sha256_str
+        # echo $sha256_str
 
     done
 fi
@@ -198,29 +181,23 @@ check_state=2
 
 for ((i=0; i < ${#file_args[@]}; i++))
 do
-        ### 印出 array 的 key 及 value
-    # echo $i ${file_args[i]}
 
-    str=`cat ${file_args[i]} | jq type`
-    if [[ "$str" == "" ]]; then
-        echo -n -e "Its not Json file \n"
-        # transform file to JSON
-        jq --slurp --raw-input --raw-output 'split("\n") | .[1:] | map(split(",")) |map({"username": .[0],"password": .[1], "shell": .[2], "groups": .[3]})' ${file_args[i]} > ${file_args[i]}.json && cat ${file_args[i]}.json | sed 's/\\r//g' > sample_${file_args[i]}.json && rm ${file_args[i]}.json
+    if cat ${file_args[i]} | jq type > /dev/null 2>&1
+    then
+        check_state=1
+    else
+        jq --slurp --raw-input --raw-output 'split("\n") | .[1:] | map(split(",")) |map({"username": .[0],"password": .[1], "shell": .[2], "groups": .[3]})' ${file_args[i]} > ${file_args[i]}.json && cat ${file_args[i]}.json | sed 's/\\r//g' > ${file_args[i]}_sample.json && rm ${file_args[i]}.json
         # judge if it can parse
-        judge_file_str=`cat sample_${file_args[i]}.json  | jq -r ".[] | .groups" | xargs echo | awk '{print $1}'`
+        judge_file_str=`cat ${file_args[i]}_sample.json  | jq -r ".[] | .groups" | xargs echo | awk '{print $1}'`
         if [ "$judge_file_str" = "null" ] || [ "$judge_file_str" = "" ] 
         then
-            echo -n -e "I cant parse \n"
+            # echo -n -e "I cant parse \n"
             # error msg
             error_msg_5
         else
-            echo -n -e "I can parse \n"
+            # echo -n -e "I can parse \n"
             check_state=2
         fi
-    else
-        echo -n -e "Its Json file \n"
-        # parse file
-        check_state=1
     fi
 
 
@@ -229,7 +206,7 @@ do
     then
         filename_json="${file_args[i]}"
     else
-        filename_json="sample_${file_args[i]}.json"
+        filename_json="${file_args[i]}_sample.json"
     fi
 
     OIFS="$IFS"
@@ -280,7 +257,7 @@ do
         done
     else
         total_nums=`awk 'END { print NR }' ${file_args[i]}`
-        echo $total_nums
+        # echo $total_nums
         for ((j=2; j <= ${total_nums}; j++))
         do
             ### 印出 array 的 key 及 value
@@ -290,12 +267,12 @@ do
     fi
 done
 
-# debug
-    for ((j=0; j < ${#username_table[@]}; j++))
-    do
-        ### 印出 array 的 key 及 value
-        echo $j ${username_table[j]} ${password_table[j]} ${shell_table[j]} ${groups_table[j]}
-    done
+# # debug
+#     for ((j=0; j < ${#username_table[@]}; j++))
+#     do
+#         ### 印出 array 的 key 及 value
+#         echo $j ${username_table[j]} ${password_table[j]} ${shell_table[j]} ${groups_table[j]}
+#     done
 
 
 # ask for create user
@@ -322,7 +299,7 @@ do
         warning_msg
 
     else
-        echo $i ${username_table[i]} ${password_table[i]} ${shell_table[i]}
+        # echo $i ${username_table[i]} ${password_table[i]} ${shell_table[i]}
         pw useradd ${username_table[i]} -s ${shell_table[i]} # create user
         echo ${password_table[i]} | pw usermod -n ${username_table[i]} -h 0 # change password
         if [ "${groups_table[i]}" != "" ]

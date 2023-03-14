@@ -1,0 +1,255 @@
+# BEGIN General/0
+command: "bash sahw2.sh -h"
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...} -i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5: MD5 hashes to validate input files.\n-i: Input files.\n"
+stderr: ""
+anserr: ""
+returncode: 0
+# END General/0
+# BEGIN General/1
+command: "bash sahw2.sh --7759 --d336 --8bf1 --0830 --10f3"
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...} -i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5: MD5 hashes to validate input files.\n-i: Input files.\n"
+stderr: "Error: Invalid arguments.\n"
+anserr: "Error: Invalid arguments."
+returncode: 1
+# END General/1
+# BEGIN General/2
+command: "bash sahw2.sh --sha256 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a -i /tmp/49733f68 /tmp/169b35fe /tmp/c5a1bf5b /tmp/51e90021 "
+stdout: ""
+ansout: ""
+stderr: "Error: Invalid values.\n"
+anserr: "Error: Invalid values."
+returncode: 1
+
+command: "bash sahw2.sh -i /tmp/49733f68 /tmp/169b35fe /tmp/c5a1bf5b /tmp/51e90021 --sha256 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a "
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansout: ""
+stderr: "Error: Invalid arguments.\n"
+anserr: "Error: Invalid values."
+returncode: 1
+# END General/2
+# BEGIN General/3
+command: "bash sahw2.sh --md5 99914b932bd37a50b983c5e7c90ae93b 99914b932bd37a50b983c5e7c90ae93b --sha256 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a -i /tmp/844cba1e /tmp/543dbe3b /tmp/8a255dd4 /tmp/c547ba5a "
+stdout: ""
+ansout: ""
+stderr: "Error: Only one type of hash function is allowed.\n"
+anserr: "Error: Only one type of hash function is allowed."
+returncode: 1
+
+command: "bash sahw2.sh -i /tmp/844cba1e /tmp/543dbe3b /tmp/8a255dd4 /tmp/c547ba5a --md5 99914b932bd37a50b983c5e7c90ae93b 99914b932bd37a50b983c5e7c90ae93b --sha256 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a "
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansout: ""
+stderr: "Error: Invalid arguments.\n"
+anserr: "Error: Only one type of hash function is allowed."
+returncode: 1
+# END General/3
+# BEGIN HashValidation/0
+command: "bash sahw2.sh --md5 78450cfdefe11ab64499e1958489573d -i /tmp/c4e4a494 "
+stdout: ""
+ansout: ""
+stderr: "Error: Invalid checksum.\n"
+anserr: "Error: Invalid checksum."
+returncode: 1
+
+command: "bash sahw2.sh -i /tmp/c4e4a494 --md5 78450cfdefe11ab64499e1958489573d "
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansout: ""
+stderr: "Error: Invalid arguments.\n"
+anserr: "Error: Invalid checksum."
+returncode: 1
+# END HashValidation/0
+# BEGIN HashValidation/1
+['/tmp/9c572c7d', '/tmp/8b21c69c', '/tmp/31733c3d']
+# END HashValidation/1
+# BEGIN ParsingFiles/0
+command: "bash sahw2.sh --md5 27288f7c1e5c4ec8203ccff7e4f4a478 ba9d1ba2a449dd3c97791fbebc87c059 -i /tmp/656de94c /tmp/000f4624 "
+stdout: ""
+ansout: "This script will create the following user(s): x66444537 sd03d4718 p910f94b0 i0f0e790a p81a217c2 h9ee199a0 k24816ce8 yf63240a3 gc6a41286 x66444537 ud0adf301 zeda024ba gcd6ba3ac h1c122dcc sd03d4718 h1c122dcc rca828dab tfe0ba813 zf05eb6e0 z3018ec0c a0849045b z251119ea re4705695 xf1137d34 ud0adf301 k5537c616 x8d92b6c6 xa2f2ac95 oc77dcdfa t74b3de2f ff27697fa r073a33f3 ja4ff26dd oaa4849fb be9df7fad c229c58ad p15d3b1d9 padfa620c n14373ac6 l9a705940 l82ed1a3f h9fe2f8ef i0f0e790a l4ebdfaec i14b56487 gac6579c3 s6ca7cf37 of744cb62 k24816ce8 mc75ad5ed c90c5232d gbda0df23 z6bf3492f h2f397a20 q13b1686b z1da572bb f6211d94f z5f510427 u4dbccad6 i77c153ab h0336c9d1 pc0b75e35 g44a1ac62 w7851ee92 eadac9a9b m6c00db72 g9619041f i4b33e29f v48b27add k0123927f lc15b7325 p893446bb ef2b6b5e5 xac458dec ya1a9370d o7418cb5d y01c07fd6 s14056cea d198d2c26 s06839fc4 x6d1d1874 p789a1d52 v8dd7c11f b12aefe0d root g91bbc954 p405ddcc8 re4705695 g9619041f e5cf840aa j4a952059 w44454875 afd7205e3 o55162f88 k35c88a63 i14b56487 dbc42f5ee m313b9e00 r0310a083 r638a76d9 gfeee9f23 zcdeaafe2 n0fb92f1f i601e915a o252c4db6 gf8e8745d h9fe2f8ef j1ed2fc23 u529d32ac yf0b6c065 p11929de9 zf96034e9 ff794a613 z852eb8f7 f6b469e4c a2536cb0c j3f02449a d1360bf9d y0819f99d ob39a595f x54ed1d0b x6323f03f s916d8fca h266a9ee5 h767b2acc t56ef1f4e vda7282e0 m88f6d100 o1498ea4d t3b10a26d z3e0ba3f3 h7f53a958 y1ed05a66 i0d60ec69 db9795578 jfff0e25d o3f89335a e7d54c988 q48f95bb4 x9f52f7e9 v20529f6a e335788a9 j072dbb89 w6ea8257a nbde722ce t50595698 t45b6f57f daf0e35aa s440144d7 h7f53a958 c363fd847 xced43194 z6cf42d80 w9b55ecf6 j2c708241 mc0ab553d k4a60dba1 f5877c9fe o4bc20b9e jf914a615 e9edc132c ld5f89764 v6254ca9a v870ab977 r6a125916 v1f6ec931 ge2fe4613 l6425249c root m969e3dca d3062c5be c492f384b k463b4cdc root hfe9c69bc c67c66f1a j34db949a q6c34dc54 zf9fa5ea5 i29f5421c f4404fe96 x428bf387 j2ca6992f wb4493843 e7f8221cd mbb839136 y13309bb7 x5e00d5ea af4f8b132 b9f4ccb5b ac04fa0f5 l6420e9e3 m6358f12d c043aa0c8 vcf9c49c0 qd029af25 w88d118c2 q97544bc2 q5abda3fe n9db1da8d o21c16516 ydb310649 g224f278f ca5e4b8ea d6445c7ea v03efacef rc7bae775 d4e5ed45f c2487347e y01c07fd6 wb140e424 q9abe59f7 g9f0c8bd4 g95b41645 wbc1c0f24 Do you want to continue? [y/n]:"
+stderr: "sahw2.sh: line 189: sample_/tmp/000f4624.json: No such file or directory\ncat: sample_/tmp/000f4624.json: No such file or directory\nError: Invalid file format.\n"
+anserr: ""
+returncode: 1
+# END ParsingFiles/0
+# BEGIN ParsingFiles/1
+command: "bash sahw2.sh --md5 bcaa74eda62362ff1c57932ed6593413 6a0ef6e34bbdd9ef47a877f4f01a3259 -i /tmp/e8de7a95 /tmp/fadbd67f "
+id: 
+
+ansid: 
+
+returncode: 1
+# END ParsingFiles/1
+# BEGIN ParsingFiles/2
+command: "bash sahw2.sh --md5 5a42ec93a758d66ac5f535fe5291a52e 946d31d0043313e10519836f130b3601 -i /tmp/011eded7 /tmp/8978d683 "
+stdout: ""
+ansout: ""
+stderr: "sahw2.sh: line 189: sample_/tmp/011eded7.json: No such file or directory\ncat: sample_/tmp/011eded7.json: No such file or directory\nError: Invalid file format.\n"
+anserr: "Error: Invalid file format."
+id: 
+
+ansid: 
+
+returncode: 1
+# END ParsingFiles/2
+# BEGIN CreateUsers/0
+command: "bash sahw2.sh --md5 14177fc3ee80975983eccb5e562502c7 a63d92b7cebe6e53a4c3bfd6ec0f9f5c -i /tmp/e5e15def /tmp/ff6f317f "
+stdout: ""
+ansoutregex: "(.|\r|\n)*Warning: user root already exists.\nWarning: user root already exists.\nWarning: user root already exists.\nWarning: user root already exists.\nWarning: user mc3450f31 already exists.\nWarning: user root already exists.\nWarning: user mc3450f31 already exists.$"
+stderr: "sahw2.sh: line 189: sample_/tmp/e5e15def.json: No such file or directory\ncat: sample_/tmp/e5e15def.json: No such file or directory\nError: Invalid file format.\n"
+anserr: ""
+returncode: 1
+
+command: "bash sahw2.sh -i /tmp/e5e15def /tmp/ff6f317f --md5 14177fc3ee80975983eccb5e562502c7 a63d92b7cebe6e53a4c3bfd6ec0f9f5c "
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansoutregex: "(.|\r|\n)*Warning: user root already exists.\nWarning: user root already exists.\nWarning: user root already exists.\nWarning: user root already exists.\nWarning: user mc3450f31 already exists.\nWarning: user root already exists.\nWarning: user mc3450f31 already exists.$"
+stderr: "Error: Invalid arguments.\n"
+anserr: ""
+returncode: 1
+
+command: "bash sahw2.sh --sha256 184e5d609028cedca15033fc0b062d663d645872c040033842e19bd5b458c26b baddedc17279840b0fc86e6ceeda37d0cd8b80e7eb0602e19ece8a5d20f8f06a -i /tmp/df56700d /tmp/9a5090e3 "
+stdout: ""
+ansoutregex: "(.|\r|\n)*Warning: user root already exists.\nWarning: user root already exists.$"
+stderr: "sahw2.sh: line 189: sample_/tmp/df56700d.json: No such file or directory\ncat: sample_/tmp/df56700d.json: No such file or directory\nError: Invalid file format.\n"
+anserr: ""
+returncode: 1
+
+command: "bash sahw2.sh -i /tmp/df56700d /tmp/9a5090e3 --sha256 184e5d609028cedca15033fc0b062d663d645872c040033842e19bd5b458c26b baddedc17279840b0fc86e6ceeda37d0cd8b80e7eb0602e19ece8a5d20f8f06a "
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansoutregex: "(.|\r|\n)*Warning: user root already exists.\nWarning: user root already exists.$"
+stderr: "Error: Invalid arguments.\n"
+anserr: ""
+returncode: 1
+
+command: "bash sahw2.sh -i /tmp/768426d6 /tmp/6c80528d --md5 b7350ae89e4d50b0624cdf94195b3ffa 8ee8b9484b92ec2935105156cfe89933 "
+stdout: "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...}\n-i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5:\nMD5 hashes to validate input files.\n-i: Input files.\n"
+ansoutregex: "(.|\r|\n)*Warning: user root already exists.\nWarning: user root already exists.\nWarning: user ge4fd2769 already exists.\nWarning: user ge4fd2769 already exists.\nWarning: user root already exists.\nWarning: user root already exists.\nWarning: user root already exists.\nWarning: user ie2b1815e already exists.\nWarning: user e774b6ecd already exists.\nWarning: user root already exists.\nWarning: user bed15e2d3 already exists.\nWarning: user w3d4d01ac already exists.\nWarning: user hf0928857 already exists.$"
+stderr: "Error: Invalid arguments.\n"
+anserr: ""
+returncode: 1
+# END CreateUsers/0
+# BEGIN CreateUsers/1
+command: "id <user>"
+id: 
+
+ansidregex: 
+uid=\d+\(yc77a36e0\) gid=\d+\(yc77a36e0\) groups=\d+\((yc77a36e0)\)
+uid=\d+\(i40497481\) gid=\d+\(i40497481\) groups=\d+\((i40497481)\)
+uid=\d+\(nc8332913\) gid=\d+\(nc8332913\) groups=\d+\((s80369889|t33545881|a0858230a|f5ff7ab80|nc8332913)\),\d+\((s80369889|t33545881|a0858230a|f5ff7ab80|nc8332913)\),\d+\((s80369889|t33545881|a0858230a|f5ff7ab80|nc8332913)\),\d+\((s80369889|t33545881|a0858230a|f5ff7ab80|nc8332913)\),\d+\((s80369889|t33545881|a0858230a|f5ff7ab80|nc8332913)\)
+uid=\d+\(c12f203bd\) gid=\d+\(c12f203bd\) groups=\d+\((ia10955cc|id2f788c7|c12f203bd)\),\d+\((ia10955cc|id2f788c7|c12f203bd)\),\d+\((ia10955cc|id2f788c7|c12f203bd)\)
+uid=\d+\(v3b295fe3\) gid=\d+\(v3b295fe3\) groups=\d+\((i4213a1ab|v3b295fe3)\),\d+\((i4213a1ab|v3b295fe3)\)
+uid=\d+\(s503fa809\) gid=\d+\(s503fa809\) groups=\d+\((e64c9f197|ia10955cc|q67953998|t33545881|s503fa809)\),\d+\((e64c9f197|ia10955cc|q67953998|t33545881|s503fa809)\),\d+\((e64c9f197|ia10955cc|q67953998|t33545881|s503fa809)\),\d+\((e64c9f197|ia10955cc|q67953998|t33545881|s503fa809)\),\d+\((e64c9f197|ia10955cc|q67953998|t33545881|s503fa809)\)
+uid=\d+\(mc3450f31\) gid=\d+\(mc3450f31\) groups=\d+\((xfb94bf22|q67953998|i3fbd98fc|nba09c538|s80369889|mc3450f31)\),\d+\((xfb94bf22|q67953998|i3fbd98fc|nba09c538|s80369889|mc3450f31)\),\d+\((xfb94bf22|q67953998|i3fbd98fc|nba09c538|s80369889|mc3450f31)\),\d+\((xfb94bf22|q67953998|i3fbd98fc|nba09c538|s80369889|mc3450f31)\),\d+\((xfb94bf22|q67953998|i3fbd98fc|nba09c538|s80369889|mc3450f31)\),\d+\((xfb94bf22|q67953998|i3fbd98fc|nba09c538|s80369889|mc3450f31)\)
+uid=\d+\(pa3df7651\) gid=\d+\(pa3df7651\) groups=\d+\((id2f788c7|e64c9f197|f5ff7ab80|s80369889|i4213a1ab|pa3df7651)\),\d+\((id2f788c7|e64c9f197|f5ff7ab80|s80369889|i4213a1ab|pa3df7651)\),\d+\((id2f788c7|e64c9f197|f5ff7ab80|s80369889|i4213a1ab|pa3df7651)\),\d+\((id2f788c7|e64c9f197|f5ff7ab80|s80369889|i4213a1ab|pa3df7651)\),\d+\((id2f788c7|e64c9f197|f5ff7ab80|s80369889|i4213a1ab|pa3df7651)\),\d+\((id2f788c7|e64c9f197|f5ff7ab80|s80369889|i4213a1ab|pa3df7651)\)
+uid=\d+\(a55698a68\) gid=\d+\(a55698a68\) groups=\d+\((i4213a1ab|s6ffcf359|i3fbd98fc|d0d8fdb34|a55698a68)\),\d+\((i4213a1ab|s6ffcf359|i3fbd98fc|d0d8fdb34|a55698a68)\),\d+\((i4213a1ab|s6ffcf359|i3fbd98fc|d0d8fdb34|a55698a68)\),\d+\((i4213a1ab|s6ffcf359|i3fbd98fc|d0d8fdb34|a55698a68)\),\d+\((i4213a1ab|s6ffcf359|i3fbd98fc|d0d8fdb34|a55698a68)\)
+uid=\d+\(gb10c72a6\) gid=\d+\(gb10c72a6\) groups=\d+\((gb10c72a6)\)
+uid=\d+\(y8fe41153\) gid=\d+\(y8fe41153\) groups=\d+\((t33545881|a0858230a|y8fe41153)\),\d+\((t33545881|a0858230a|y8fe41153)\),\d+\((t33545881|a0858230a|y8fe41153)\)
+uid=\d+\(l9d97455f\) gid=\d+\(l9d97455f\) groups=\d+\((i4213a1ab|i3fbd98fc|s80369889|w690478f0|l9d97455f)\),\d+\((i4213a1ab|i3fbd98fc|s80369889|w690478f0|l9d97455f)\),\d+\((i4213a1ab|i3fbd98fc|s80369889|w690478f0|l9d97455f)\),\d+\((i4213a1ab|i3fbd98fc|s80369889|w690478f0|l9d97455f)\),\d+\((i4213a1ab|i3fbd98fc|s80369889|w690478f0|l9d97455f)\)
+uid=\d+\(w638f7250\) gid=\d+\(w638f7250\) groups=\d+\((l18780399|a0858230a|nba09c538|e64c9f197|w638f7250)\),\d+\((l18780399|a0858230a|nba09c538|e64c9f197|w638f7250)\),\d+\((l18780399|a0858230a|nba09c538|e64c9f197|w638f7250)\),\d+\((l18780399|a0858230a|nba09c538|e64c9f197|w638f7250)\),\d+\((l18780399|a0858230a|nba09c538|e64c9f197|w638f7250)\)
+uid=\d+\(p375e46c6\) gid=\d+\(p375e46c6\) groups=\d+\((s6ffcf359|s80369889|d0d8fdb34|i3fbd98fc|e64c9f197|p375e46c6)\),\d+\((s6ffcf359|s80369889|d0d8fdb34|i3fbd98fc|e64c9f197|p375e46c6)\),\d+\((s6ffcf359|s80369889|d0d8fdb34|i3fbd98fc|e64c9f197|p375e46c6)\),\d+\((s6ffcf359|s80369889|d0d8fdb34|i3fbd98fc|e64c9f197|p375e46c6)\),\d+\((s6ffcf359|s80369889|d0d8fdb34|i3fbd98fc|e64c9f197|p375e46c6)\),\d+\((s6ffcf359|s80369889|d0d8fdb34|i3fbd98fc|e64c9f197|p375e46c6)\)
+uid=\d+\(q14e2a74c\) gid=\d+\(q14e2a74c\) groups=\d+\((ia10955cc|nba09c538|f5ff7ab80|a0858230a|q14e2a74c)\),\d+\((ia10955cc|nba09c538|f5ff7ab80|a0858230a|q14e2a74c)\),\d+\((ia10955cc|nba09c538|f5ff7ab80|a0858230a|q14e2a74c)\),\d+\((ia10955cc|nba09c538|f5ff7ab80|a0858230a|q14e2a74c)\),\d+\((ia10955cc|nba09c538|f5ff7ab80|a0858230a|q14e2a74c)\)
+uid=\d+\(k5114da43\) gid=\d+\(k5114da43\) groups=\d+\((s80369889|w690478f0|t15e1edad|i3fbd98fc|k5114da43)\),\d+\((s80369889|w690478f0|t15e1edad|i3fbd98fc|k5114da43)\),\d+\((s80369889|w690478f0|t15e1edad|i3fbd98fc|k5114da43)\),\d+\((s80369889|w690478f0|t15e1edad|i3fbd98fc|k5114da43)\),\d+\((s80369889|w690478f0|t15e1edad|i3fbd98fc|k5114da43)\)
+uid=\d+\(ib3f820dd\) gid=\d+\(ib3f820dd\) groups=\d+\((s80369889|id2f788c7|ib3f820dd)\),\d+\((s80369889|id2f788c7|ib3f820dd)\),\d+\((s80369889|id2f788c7|ib3f820dd)\)
+uid=\d+\(zb2cc40ec\) gid=\d+\(zb2cc40ec\) groups=\d+\((xfb94bf22|t15e1edad|q67953998|zb2cc40ec)\),\d+\((xfb94bf22|t15e1edad|q67953998|zb2cc40ec)\),\d+\((xfb94bf22|t15e1edad|q67953998|zb2cc40ec)\),\d+\((xfb94bf22|t15e1edad|q67953998|zb2cc40ec)\)
+uid=\d+\(w5f68efed\) gid=\d+\(w5f68efed\) groups=\d+\((w690478f0|s80369889|a0858230a|q67953998|i4213a1ab|w5f68efed)\),\d+\((w690478f0|s80369889|a0858230a|q67953998|i4213a1ab|w5f68efed)\),\d+\((w690478f0|s80369889|a0858230a|q67953998|i4213a1ab|w5f68efed)\),\d+\((w690478f0|s80369889|a0858230a|q67953998|i4213a1ab|w5f68efed)\),\d+\((w690478f0|s80369889|a0858230a|q67953998|i4213a1ab|w5f68efed)\),\d+\((w690478f0|s80369889|a0858230a|q67953998|i4213a1ab|w5f68efed)\)
+uid=\d+\(u3dd60752\) gid=\d+\(u3dd60752\) groups=\d+\((f5ff7ab80|i4213a1ab|nba09c538|f9f27e023|l18780399|u3dd60752)\),\d+\((f5ff7ab80|i4213a1ab|nba09c538|f9f27e023|l18780399|u3dd60752)\),\d+\((f5ff7ab80|i4213a1ab|nba09c538|f9f27e023|l18780399|u3dd60752)\),\d+\((f5ff7ab80|i4213a1ab|nba09c538|f9f27e023|l18780399|u3dd60752)\),\d+\((f5ff7ab80|i4213a1ab|nba09c538|f9f27e023|l18780399|u3dd60752)\),\d+\((f5ff7ab80|i4213a1ab|nba09c538|f9f27e023|l18780399|u3dd60752)\)
+uid=\d+\(q5d1d886c\) gid=\d+\(q5d1d886c\) groups=\d+\((f5ff7ab80|s80369889|q67953998|s6ffcf359|t33545881|q5d1d886c)\),\d+\((f5ff7ab80|s80369889|q67953998|s6ffcf359|t33545881|q5d1d886c)\),\d+\((f5ff7ab80|s80369889|q67953998|s6ffcf359|t33545881|q5d1d886c)\),\d+\((f5ff7ab80|s80369889|q67953998|s6ffcf359|t33545881|q5d1d886c)\),\d+\((f5ff7ab80|s80369889|q67953998|s6ffcf359|t33545881|q5d1d886c)\),\d+\((f5ff7ab80|s80369889|q67953998|s6ffcf359|t33545881|q5d1d886c)\)
+uid=\d+\(bed5dbb91\) gid=\d+\(bed5dbb91\) groups=\d+\((bed5dbb91)\)
+uid=\d+\(vb9e8a554\) gid=\d+\(vb9e8a554\) groups=\d+\((t15e1edad|s80369889|w690478f0|vb9e8a554)\),\d+\((t15e1edad|s80369889|w690478f0|vb9e8a554)\),\d+\((t15e1edad|s80369889|w690478f0|vb9e8a554)\),\d+\((t15e1edad|s80369889|w690478f0|vb9e8a554)\)
+uid=\d+\(m95042782\) gid=\d+\(m95042782\) groups=\d+\((f5ff7ab80|t33545881|l18780399|ia10955cc|m95042782)\),\d+\((f5ff7ab80|t33545881|l18780399|ia10955cc|m95042782)\),\d+\((f5ff7ab80|t33545881|l18780399|ia10955cc|m95042782)\),\d+\((f5ff7ab80|t33545881|l18780399|ia10955cc|m95042782)\),\d+\((f5ff7ab80|t33545881|l18780399|ia10955cc|m95042782)\)
+uid=\d+\(v9e43f2bf\) gid=\d+\(v9e43f2bf\) groups=\d+\((s80369889|t33545881|v9e43f2bf)\),\d+\((s80369889|t33545881|v9e43f2bf)\),\d+\((s80369889|t33545881|v9e43f2bf)\)
+uid=\d+\(u142bf224\) gid=\d+\(u142bf224\) groups=\d+\((i3fbd98fc|nba09c538|f9f27e023|u142bf224)\),\d+\((i3fbd98fc|nba09c538|f9f27e023|u142bf224)\),\d+\((i3fbd98fc|nba09c538|f9f27e023|u142bf224)\),\d+\((i3fbd98fc|nba09c538|f9f27e023|u142bf224)\)
+uid=\d+\(fc3d5698c\) gid=\d+\(fc3d5698c\) groups=\d+\((s80369889|s6ffcf359|fc3d5698c)\),\d+\((s80369889|s6ffcf359|fc3d5698c)\),\d+\((s80369889|s6ffcf359|fc3d5698c)\)
+uid=\d+\(l1f25ca13\) gid=\d+\(l1f25ca13\) groups=\d+\((id2f788c7|w690478f0|i3fbd98fc|e64c9f197|i4213a1ab|l1f25ca13)\),\d+\((id2f788c7|w690478f0|i3fbd98fc|e64c9f197|i4213a1ab|l1f25ca13)\),\d+\((id2f788c7|w690478f0|i3fbd98fc|e64c9f197|i4213a1ab|l1f25ca13)\),\d+\((id2f788c7|w690478f0|i3fbd98fc|e64c9f197|i4213a1ab|l1f25ca13)\),\d+\((id2f788c7|w690478f0|i3fbd98fc|e64c9f197|i4213a1ab|l1f25ca13)\),\d+\((id2f788c7|w690478f0|i3fbd98fc|e64c9f197|i4213a1ab|l1f25ca13)\)
+uid=\d+\(iedbeb310\) gid=\d+\(iedbeb310\) groups=\d+\((s6ffcf359|t33545881|f9f27e023|iedbeb310)\),\d+\((s6ffcf359|t33545881|f9f27e023|iedbeb310)\),\d+\((s6ffcf359|t33545881|f9f27e023|iedbeb310)\),\d+\((s6ffcf359|t33545881|f9f27e023|iedbeb310)\)
+uid=\d+\(q3a00e0f1\) gid=\d+\(q3a00e0f1\) groups=\d+\((id2f788c7|nba09c538|d0d8fdb34|q3a00e0f1)\),\d+\((id2f788c7|nba09c538|d0d8fdb34|q3a00e0f1)\),\d+\((id2f788c7|nba09c538|d0d8fdb34|q3a00e0f1)\),\d+\((id2f788c7|nba09c538|d0d8fdb34|q3a00e0f1)\)
+uid=\d+\(h98011e1c\) gid=\d+\(h98011e1c\) groups=\d+\((if619d4e9|s6ffcf359|w690478f0|f5ff7ab80|i3fbd98fc|h98011e1c)\),\d+\((if619d4e9|s6ffcf359|w690478f0|f5ff7ab80|i3fbd98fc|h98011e1c)\),\d+\((if619d4e9|s6ffcf359|w690478f0|f5ff7ab80|i3fbd98fc|h98011e1c)\),\d+\((if619d4e9|s6ffcf359|w690478f0|f5ff7ab80|i3fbd98fc|h98011e1c)\),\d+\((if619d4e9|s6ffcf359|w690478f0|f5ff7ab80|i3fbd98fc|h98011e1c)\),\d+\((if619d4e9|s6ffcf359|w690478f0|f5ff7ab80|i3fbd98fc|h98011e1c)\)
+uid=\d+\(p4c7aab09\) gid=\d+\(p4c7aab09\) groups=\d+\((p4c7aab09)\)
+uid=\d+\(fb884392e\) gid=\d+\(fb884392e\) groups=\d+\((fb884392e)\)
+uid=\d+\(j282e55d4\) gid=\d+\(j282e55d4\) groups=\d+\((if619d4e9|i3fbd98fc|j282e55d4)\),\d+\((if619d4e9|i3fbd98fc|j282e55d4)\),\d+\((if619d4e9|i3fbd98fc|j282e55d4)\)
+uid=\d+\(k207cb054\) gid=\d+\(k207cb054\) groups=\d+\((f9f27e023|e64c9f197|q67953998|if619d4e9|k207cb054)\),\d+\((f9f27e023|e64c9f197|q67953998|if619d4e9|k207cb054)\),\d+\((f9f27e023|e64c9f197|q67953998|if619d4e9|k207cb054)\),\d+\((f9f27e023|e64c9f197|q67953998|if619d4e9|k207cb054)\),\d+\((f9f27e023|e64c9f197|q67953998|if619d4e9|k207cb054)\)
+uid=\d+\(ub23b112f\) gid=\d+\(ub23b112f\) groups=\d+\((w690478f0|t15e1edad|f5ff7ab80|nba09c538|ub23b112f)\),\d+\((w690478f0|t15e1edad|f5ff7ab80|nba09c538|ub23b112f)\),\d+\((w690478f0|t15e1edad|f5ff7ab80|nba09c538|ub23b112f)\),\d+\((w690478f0|t15e1edad|f5ff7ab80|nba09c538|ub23b112f)\),\d+\((w690478f0|t15e1edad|f5ff7ab80|nba09c538|ub23b112f)\)
+uid=\d+\(v0ceca649\) gid=\d+\(v0ceca649\) groups=\d+\((v0ceca649)\)
+uid=\d+\(v25c6d6ae\) gid=\d+\(v25c6d6ae\) groups=\d+\((l18780399|a0858230a|e64c9f197|i3fbd98fc|v25c6d6ae)\),\d+\((l18780399|a0858230a|e64c9f197|i3fbd98fc|v25c6d6ae)\),\d+\((l18780399|a0858230a|e64c9f197|i3fbd98fc|v25c6d6ae)\),\d+\((l18780399|a0858230a|e64c9f197|i3fbd98fc|v25c6d6ae)\),\d+\((l18780399|a0858230a|e64c9f197|i3fbd98fc|v25c6d6ae)\)
+uid=\d+\(a884ed6a9\) gid=\d+\(a884ed6a9\) groups=\d+\((a884ed6a9)\)
+uid=\d+\(p18be9946\) gid=\d+\(p18be9946\) groups=\d+\((s6ffcf359|nba09c538|if619d4e9|xfb94bf22|p18be9946)\),\d+\((s6ffcf359|nba09c538|if619d4e9|xfb94bf22|p18be9946)\),\d+\((s6ffcf359|nba09c538|if619d4e9|xfb94bf22|p18be9946)\),\d+\((s6ffcf359|nba09c538|if619d4e9|xfb94bf22|p18be9946)\),\d+\((s6ffcf359|nba09c538|if619d4e9|xfb94bf22|p18be9946)\)
+uid=\d+\(c1f1b8116\) gid=\d+\(c1f1b8116\) groups=\d+\((t33545881|q67953998|id2f788c7|i3fbd98fc|l18780399|c1f1b8116)\),\d+\((t33545881|q67953998|id2f788c7|i3fbd98fc|l18780399|c1f1b8116)\),\d+\((t33545881|q67953998|id2f788c7|i3fbd98fc|l18780399|c1f1b8116)\),\d+\((t33545881|q67953998|id2f788c7|i3fbd98fc|l18780399|c1f1b8116)\),\d+\((t33545881|q67953998|id2f788c7|i3fbd98fc|l18780399|c1f1b8116)\),\d+\((t33545881|q67953998|id2f788c7|i3fbd98fc|l18780399|c1f1b8116)\)
+uid=\d+\(q27aa8542\) gid=\d+\(q27aa8542\) groups=\d+\((id2f788c7|f5ff7ab80|q27aa8542)\),\d+\((id2f788c7|f5ff7ab80|q27aa8542)\),\d+\((id2f788c7|f5ff7ab80|q27aa8542)\)
+uid=\d+\(ff2c7879a\) gid=\d+\(ff2c7879a\) groups=\d+\((e64c9f197|nba09c538|ia10955cc|i3fbd98fc|q67953998|ff2c7879a)\),\d+\((e64c9f197|nba09c538|ia10955cc|i3fbd98fc|q67953998|ff2c7879a)\),\d+\((e64c9f197|nba09c538|ia10955cc|i3fbd98fc|q67953998|ff2c7879a)\),\d+\((e64c9f197|nba09c538|ia10955cc|i3fbd98fc|q67953998|ff2c7879a)\),\d+\((e64c9f197|nba09c538|ia10955cc|i3fbd98fc|q67953998|ff2c7879a)\),\d+\((e64c9f197|nba09c538|ia10955cc|i3fbd98fc|q67953998|ff2c7879a)\)
+command: "getent passwd <user>"
+getent: 
+
+ansgetentregex: 
+yc77a36e0:.*:\d+:\d+:.*:.*:/bin/sh
+i40497481:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+nc8332913:.*:\d+:\d+:.*:.*:/bin/sh
+c12f203bd:.*:\d+:\d+:.*:.*:/bin/csh
+v3b295fe3:.*:\d+:\d+:.*:.*:/bin/csh
+s503fa809:.*:\d+:\d+:.*:.*:/bin/sh
+mc3450f31:.*:\d+:\d+:.*:.*:/bin/tcsh
+pa3df7651:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+a55698a68:.*:\d+:\d+:.*:.*:/bin/sh
+gb10c72a6:.*:\d+:\d+:.*:.*:/bin/tcsh
+y8fe41153:.*:\d+:\d+:.*:.*:/bin/tcsh
+l9d97455f:.*:\d+:\d+:.*:.*:/bin/csh
+w638f7250:.*:\d+:\d+:.*:.*:/bin/tcsh
+p375e46c6:.*:\d+:\d+:.*:.*:/bin/tcsh
+q14e2a74c:.*:\d+:\d+:.*:.*:/bin/tcsh
+k5114da43:.*:\d+:\d+:.*:.*:/bin/sh
+ib3f820dd:.*:\d+:\d+:.*:.*:/bin/sh
+zb2cc40ec:.*:\d+:\d+:.*:.*:/bin/csh
+w5f68efed:.*:\d+:\d+:.*:.*:/bin/csh
+u3dd60752:.*:\d+:\d+:.*:.*:/bin/csh
+q5d1d886c:.*:\d+:\d+:.*:.*:/bin/tcsh
+bed5dbb91:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+vb9e8a554:.*:\d+:\d+:.*:.*:/bin/sh
+m95042782:.*:\d+:\d+:.*:.*:/bin/tcsh
+v9e43f2bf:.*:\d+:\d+:.*:.*:/bin/sh
+u142bf224:.*:\d+:\d+:.*:.*:/bin/csh
+fc3d5698c:.*:\d+:\d+:.*:.*:/bin/sh
+l1f25ca13:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+iedbeb310:.*:\d+:\d+:.*:.*:/bin/tcsh
+q3a00e0f1:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+h98011e1c:.*:\d+:\d+:.*:.*:/bin/tcsh
+p4c7aab09:.*:\d+:\d+:.*:.*:/bin/csh
+fb884392e:.*:\d+:\d+:.*:.*:/bin/tcsh
+j282e55d4:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+k207cb054:.*:\d+:\d+:.*:.*:/bin/csh
+ub23b112f:.*:\d+:\d+:.*:.*:/bin/tcsh
+v0ceca649:.*:\d+:\d+:.*:.*:/bin/csh
+v25c6d6ae:.*:\d+:\d+:.*:.*:/bin/sh
+a884ed6a9:.*:\d+:\d+:.*:.*:/bin/sh
+p18be9946:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+c1f1b8116:.*:\d+:\d+:.*:.*:/bin/csh
+q27aa8542:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+ff2c7879a:.*:\d+:\d+:.*:.*:/usr/local/bin/bash
+# END CreateUsers/1
+# BEGIN CreateUsers/2
+command: "su <user> -c whoami"
+stdout: 
+
+
+
+
+
+
+stderr: 
+Warning: Permanently added 'localhost.localdomain' (ED25519) to the list of known hosts.
+Permission denied, please try again.
+
+Warning: Permanently added 'localhost.localdomain' (ED25519) to the list of known hosts.
+Permission denied, please try again.
+
+Warning: Permanently added 'localhost.localdomain' (ED25519) to the list of known hosts.
+Permission denied, please try again.
+
+Warning: Permanently added 'localhost.localdomain' (ED25519) to the list of known hosts.
+Permission denied, please try again.
+
+Warning: Permanently added 'localhost.localdomain' (ED25519) to the list of known hosts.
+Permission denied, please try again.
+# END CreateUsers/2
+
+
+
+
+stdout: "This script will create the following user(s): kd4e4a69c rf9c1bf1d o69880c9a c6b90ce92 a2843c515 b1edc7925 jea2b01bf d1d4af6d8 pe0ecf17e e5e3902a6 k180a1e37 w765c4af1 q9a7790cc h44cb8969 y5ddb1b07 c74fce179 t844177cd j74fabf5a tb04430c0 xad95cfda j66f15d03 v1dabd410 u4522ebf1 x66561c06 kd4e4a69c h9ba04fac xde58281b x56beeafc c7b11ba32 hddd1688c u4522ebf1 v5d39441d rf9c1bf1d t00ced843 s4afab213 c27033eed h2eeefbd1 w6d1ba019 yb732fb20 d673d4f91 xebe156c9 leea06d8d y5c3f9bdf w6dccc15c n09c72918 r54de1976 a93d7a065 hddd1688c n448ad094 w77c8ada1 qa87583ae gde10a31e fa40510a1 y37b99520 r65eedeb4 bafe0d330 k7cfd7b39 s059c749b a96cc5e29 ae920de40 l20e47e61 ka7faa87d o4ab789e2 pb385d660 u9587ef82 l25c7ff66 root sc1962cb7 o58867f13 lf8685fcb td8c46b91 l50e99435 y74f44f18 y5c3f9bdf e73142175 ha98da93b vc98a4a92 o62001643 fd8ba5648 lf2b24809 o62001643 rb4b89939 z168b06f4 h51e69420 of4f35a12 wf433c930 t2f541b7c h1ae9666d gdf003b72 q4e495762 bb01442a3 b1ff71aaa ofafdb939 k00c6953d q4f3115a1 wd40112a5 fa28c5c4a xc015685b r7e7ca686 i2e3ec851 db9f25e60 o62001643 j68bbba3d j9492aa9d f04c4dc29 root m22c576d2 k6184d700 v6f9c29c7 m6a7a20af u48c13954 m10603ef2 t6ad68599 mb1d809f3 s136a2f5f qe8057e26 k47f71492 o145d72fc g21633aa6 x21d184a4 k9d6687c2 v2979f014 vc96f2caf root q1acd28e0 n231e653d l4d1a1453 kf8fce4c1 tb7d83e08 me2cac9a0 b03994404 c28391982 v28713d2b zc0b213ff qbddd217c c94ecd5bd d574f25f8 x1bc2f276 fe3d44eb8 s5946cfa3 xbeba9125 z53a857bf geff09bfa oa0d1c267 n8b49d317 u87647d3b y7b4f49f7 c2b94bd2c j9704db14 o87d74205 x61ebb942 je5c35de4 p98f9014e x2cd2624a f35656ea9 nbc87286e o9e2d3f91 u4b4b3b23 o30fb813f p7162f1ef s11d71b8c vfe6382a9 d8415b38f wc021f750 w765c4af1 r131fe963 v5e1f0493 sbfb6861d x938fc799 xe2abce68 j66d017e2 s995ca742 pd95ece1d b1e17bf6b a340744b5 c2760c2cc d44c41821 med97dc82 n4e41bde6 xdecfabbd c8de7cc2d y0c34ab60 root hbdb47ada yf48b3c97 m7ca856d8 kb51cc0d1 waa1dcf53 g49b31681 o489d4eca c0b881d2f w79aed29b e3e1eae15 z27fb2f78 qcdfef843 e5ccc4db8 f3871fced o5ecf8de0 g83b0fc9f ffbb99bc8 t28d8a519 aeab36be3 c6c6754e7 u42a969ec cb283d698 sbfb6861d m3bfa4dc5 u6e69ba6d d9560efd0 n5a937de0 i79016d9d r7d54bd47 o98efe346 ccbc4fcbb b99447fca c5d35de59 kb51cc0d1 vd5c52298 root yb406d82b lf60ffccf bec2077da g6d27bd0c a9f1f5779 j38d38e93 y2f36314d l64d4dd8e lcd847686 ie84edba4 z9e892594 mf9e578e2 e7b05daaa z833a11ca w443d3fb6 ha172c0d6 k9bf7f9e5 kb36f5abb m6ff1c07e m3c18bef0 h4c76830e c703147b4 u314c4f0f jf3b9a4f7 rfed0f054 le392e8d6 hfacffe3c l50e99435 s2070ccd4 d027617f9 e64053234 y96015c38 a09eac680 l62b23624 m28d5a9ab d6b922b47 za778d206 c898cdffb n33ca5897 null Do you want to continue? [y/n]:"
+ansout: "This script will create the following user(s): kd4e4a69c rf9c1bf1d o69880c9a c6b90ce92 a2843c515 b1edc7925 jea2b01bf d1d4af6d8 pe0ecf17e e5e3902a6 k180a1e37 w765c4af1 q9a7790cc h44cb8969 y5ddb1b07 c74fce179 t844177cd j74fabf5a tb04430c0 xad95cfda j66f15d03 v1dabd410 u4522ebf1 x66561c06 kd4e4a69c h9ba04fac xde58281b x56beeafc c7b11ba32 hddd1688c u4522ebf1 v5d39441d rf9c1bf1d t00ced843 s4afab213 c27033eed h2eeefbd1 w6d1ba019 yb732fb20 d673d4f91 xebe156c9 leea06d8d y5c3f9bdf w6dccc15c n09c72918 r54de1976 a93d7a065 hddd1688c n448ad094 w77c8ada1 qa87583ae gde10a31e fa40510a1 y37b99520 r65eedeb4 bafe0d330 k7cfd7b39 s059c749b a96cc5e29 ae920de40 l20e47e61 ka7faa87d o4ab789e2 pb385d660 u9587ef82 l25c7ff66 root sc1962cb7 o58867f13 lf8685fcb td8c46b91 l50e99435 y74f44f18 y5c3f9bdf e73142175 ha98da93b vc98a4a92 o62001643 fd8ba5648 lf2b24809 o62001643 rb4b89939 z168b06f4 h51e69420 of4f35a12 wf433c930 t2f541b7c h1ae9666d gdf003b72 q4e495762 bb01442a3 b1ff71aaa ofafdb939 k00c6953d q4f3115a1 wd40112a5 fa28c5c4a xc015685b r7e7ca686 i2e3ec851 db9f25e60 o62001643 j68bbba3d j9492aa9d f04c4dc29 root m22c576d2 k6184d700 v6f9c29c7 m6a7a20af u48c13954 m10603ef2 t6ad68599 mb1d809f3 s136a2f5f qe8057e26 k47f71492 o145d72fc g21633aa6 x21d184a4 k9d6687c2 v2979f014 vc96f2caf root q1acd28e0 n231e653d l4d1a1453 kf8fce4c1 tb7d83e08 me2cac9a0 b03994404 c28391982 v28713d2b zc0b213ff qbddd217c c94ecd5bd d574f25f8 x1bc2f276 fe3d44eb8 s5946cfa3 xbeba9125 z53a857bf geff09bfa oa0d1c267 n8b49d317 u87647d3b y7b4f49f7 c2b94bd2c j9704db14 o87d74205 x61ebb942 je5c35de4 p98f9014e x2cd2624a f35656ea9 nbc87286e o9e2d3f91 u4b4b3b23 o30fb813f p7162f1ef s11d71b8c vfe6382a9 d8415b38f wc021f750 w765c4af1 r131fe963 v5e1f0493 sbfb6861d x938fc799 xe2abce68 j66d017e2 s995ca742 pd95ece1d b1e17bf6b a340744b5 c2760c2cc d44c41821 med97dc82 n4e41bde6 xdecfabbd c8de7cc2d y0c34ab60 root hbdb47ada yf48b3c97 m7ca856d8 kb51cc0d1 waa1dcf53 g49b31681 o489d4eca c0b881d2f w79aed29b e3e1eae15 z27fb2f78 qcdfef843 e5ccc4db8 f3871fced o5ecf8de0 g83b0fc9f ffbb99bc8 t28d8a519 aeab36be3 c6c6754e7 u42a969ec cb283d698 sbfb6861d m3bfa4dc5 u6e69ba6d d9560efd0 n5a937de0 i79016d9d r7d54bd47 o98efe346 ccbc4fcbb b99447fca c5d35de59 kb51cc0d1 vd5c52298 root yb406d82b lf60ffccf bec2077da g6d27bd0c a9f1f5779 j38d38e93 y2f36314d l64d4dd8e lcd847686 ie84edba4 z9e892594 mf9e578e2 e7b05daaa z833a11ca w443d3fb6 ha172c0d6 k9bf7f9e5 kb36f5abb m6ff1c07e m3c18bef0 h4c76830e c703147b4 u314c4f0f jf3b9a4f7 rfed0f054 le392e8d6 hfacffe3c l50e99435 s2070ccd4 d027617f9 e64053234 y96015c38 a09eac680 l62b23624 m28d5a9ab d6b922b47 za778d206 c898cdffb n33ca5897 Do you want to continue? [y/n]:"
