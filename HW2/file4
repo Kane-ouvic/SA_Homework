@@ -1,2 +1,0 @@
-username,password,shell,groups
-ouvic215,cat001,/bin/sh, wheel operator testgroup

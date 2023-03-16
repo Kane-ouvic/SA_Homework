@@ -1,1 +1,0 @@
-jq -R 'inputs | [splits(", *")] as $row | {(input_filename): { ($row[3]): $row[:3] }}' serverset1.csv
