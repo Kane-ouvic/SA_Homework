@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 usage() {
 echo -n -e "\nUsage: sahw2.sh {--sha256 hashes ... | --md5 hashes ...} -i files ...\n\n--sha256: SHA256 hashes to validate input files.\n--md5: MD5 hashes to validate input files.\n-i: Input files.\n"
 }
@@ -54,11 +53,20 @@ ask_msg(){
 create the following user(s): ... Do you want to continue? [y/n]:"
 }
 
+# compare_file(){
+    
+# }
+
+
+sha256_args=()
+md5_args=()
 hash_args=()
 file_args=()
 input_args=($0)
 
 
+# read the input
+# echo $0
 for i in "$@" ; do
     input_args+=("$i")
 done
@@ -67,6 +75,7 @@ choice_code=0
 hash_code=0
 
 
+# echo -n -e "==========================\n"
 
 # check the first args
 if [ "$1" = "-h" ]
@@ -75,11 +84,27 @@ then
     exit 0
 elif [ "$1" = "--md5" ]
 then
+    # echo -n -e "-md5\n"
     choice_code=1
+    # check exist sha256
+    # str=$*
+    # substr='--sha256'
+    # target=0
+    # if [[ "$str" == *"$substr"* ]]; then
+    #     error_msg_3
+    # fi
+
 
 elif [ "$1" = "--sha256" ]
 then
+    # echo -n -e "-sha256\n"
     choice_code=1
+    # check exist md5
+    # str=$*
+    # substr='--md5'
+    # if [[ "$str" == *"$substr"* ]]; then
+    #     error_msg_3
+    # fi
 elif [ "$1" = "-i" ]
 then
     choice_code=2
@@ -97,11 +122,14 @@ if [[ "$str" == *"$substr1"* ]] && [[ "$str" == *"$substr2"* ]]; then
 fi
 
 
+
+
 if [[ "$str" == *"$substr1"* ]]; then
     hash_code=1
 elif [[ "$str" == *"$substr2"* ]]; then
     hash_code=2
 fi
+
 
 if [ $choice_code -eq 1 ]
 then
@@ -139,6 +167,40 @@ else
     done
 fi
 
+# echo -n -e "==========================\n"
+
+# get hash and files
+# target=0
+# compare_string=""
+# for ((i=1;; i++))
+# do
+#     if [ "${input_args[i+1]}" = "-i" ]
+#     then
+#         break
+#     fi
+#     # echo "${input_args[i+1]}"
+#     hash_args+=(${input_args[i+1]})
+#     target=$(($i+2))
+# done
+
+# for ((i=1; i+target < ${#input_args[@]}; i++))
+# do
+#     file_args+=(${input_args[i+target]})
+# done
+
+# echo -n -e "==========================\n"
+# # echo -n -e "nums: ${#hash_args[@]}  ${#file_args[@]}\n"
+# for ((i=0; i < ${#hash_args[@]}; i++))
+# do
+#         ### 印出 array 的 key 及 value
+#     echo $i ${hash_args[i]}
+# done
+
+# for ((i=0; i < ${#file_args[@]}; i++))
+# do
+#         ### 印出 array 的 key 及 value
+#     echo $i ${file_args[i]}
+# done
 
 # check the code nums and files num  whether equal
 compare_nums ${#hash_args[@]} ${#file_args[@]}
@@ -278,6 +340,12 @@ do
     fi
 done
 
+# # debug
+#     for ((j=0; j < ${#username_table[@]}; j++))
+#     do
+#         ### 印出 array 的 key 及 value
+#         echo $j ${username_table[j]} ${password_table[j]} ${shell_table[j]} ${groups_table[j]}
+#     done
 
 
 # ask for create user
