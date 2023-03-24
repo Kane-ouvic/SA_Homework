@@ -260,7 +260,6 @@ do
         # echo $total_nums
         for ((j=2; j <= ${total_nums}; j++))
         do
-            ### 印出 array 的 key 及 value
             temp_str=`cat ${file_args[i]} | head -$j | tail +$j |awk -F, '{print $4}' | sed 's/\\r//g' `
             groups_table+=("$temp_str")
         done
