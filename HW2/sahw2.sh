@@ -293,6 +293,13 @@ case $answer in
     ;;
 esac
 
+for ((i=0; i < ${#groups_table[@]}; i++))
+do
+            ### 印出 array 的 key 及 value
+    echo ${groups_table[i]}
+    # file_args+=(${input_args[i+target]})
+done
+
 
 # adduser
 
@@ -305,7 +312,7 @@ do
     else
         # echo $i ${username_table[i]} ${password_table[i]} ${shell_table[i]}
         pw useradd ${username_table[i]} -s ${shell_table[i]} # create user
-        echo ${password_table[i]} | pw usermod -n ${username_table[i]} -h 0 # change password
+        echo ${password_table[i]} | pw usermod -n ${username_table[i]} -h 0 # change password  0 - stdin  1 - stdout 2 - stderr
         if [ "${groups_table[i]}" != "" ]
         then
             OIFS="$IFS"

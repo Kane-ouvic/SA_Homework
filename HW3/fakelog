@@ -1,0 +1,11 @@
+/var/log/fakelog.log {
+    rotate 10
+    size 1k
+    postrotate
+        for i in /var/log/fakelog.log.*; do
+            if [ -f "$i" ]; then
+                mv "$i" /var/log/fakelog/
+            fi
+        done
+    endscript
+}
