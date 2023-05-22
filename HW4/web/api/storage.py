@@ -105,21 +105,10 @@ class Storage:
 
         read_bytes = await file.read()
         file_name = file.filename
-        # filename_list[file.filename] = len(read_bytes)
-        # print(filename_list)
-        # print("==============================")
-        # print(read_bytes[0])
         file_content_type = file.content_type
-        file_size = len(read_bytes)
-        # print(read_bytes)
-        # print(self.block_path)
-        content = read_bytes.decode(errors='replace')
-        # print(content)
         insert_blocks = split_string_xor(read_bytes, settings.NUM_DISKS)
-        # print(insert_blocks)
-        # print(type(content))
         
-        #split file into n blocks
+        # split file into n blocks
         
         # create file in block
         for path in self.block_path:
@@ -148,14 +137,35 @@ class Storage:
 
     async def update_file(self, file: UploadFile) -> schemas.File:
         # TODO: update file's data block and parity block and return it's schema
+        
+        # delete
+        for path in self.block_path:
+            print(f"remove_file: {path}")
+            myfile = Path(path) / file.filename
+            os.remove(myfile)
+            
+        
+        read_bytes = await file.read()
+        file_name = file.filename
+        file_content_type = file.content_type
+        insert_blocks = split_string_xor(read_bytes, settings.NUM_DISKS)
+        for path in self.block_path:
+            print(f"create_file: {path}")
+            myfile = Path(path) / file.filename
+            myfile.touch()
+            os.chmod(myfile, 0o777)
+        
+        for i in range(settings.NUM_DISKS):
+            file_path = f"{self.block_path[i]}/{file_name}"
+            file = open(file_path, "wb")
+            file.write(insert_blocks[i])
 
-        content = "何?!"
         return schemas.File(
-            name="m3ow.txt",
-            size=123,
-            checksum=hashlib.md5(content.encode()).hexdigest(),
-            content=base64.b64decode(content.encode()),
-            content_type="text/plain",
+            name=file_name,
+            size=len(read_bytes),
+            checksum=hashlib.md5(read_bytes).hexdigest(),
+            content=base64.b64encode(read_bytes),
+            content_type=file_content_type,
         )
 
     async def delete_file(self, filename: str) -> None:
@@ -163,7 +173,10 @@ class Storage:
         for path in self.block_path:
             print(f"remove_file: {path}")
             myfile = Path(path) / filename
-            os.remove(myfile)
+            try:
+                os.remove(myfile)
+            except:
+                print('檔案不存在')
 
         # del filename_list[filename]
         
