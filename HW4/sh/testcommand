@@ -1,0 +1,5 @@
+ls -d /var/raid/block*/
+curl --connect-timeout 1 -s -I -k -L http://f74091247.sa | grep -i server | tail -n 1 | grep -i nginx
+curl --connect-timeout 1 -s -w "%{redirect_url}" -o /dev/null http://f74091247.sa
+curl --connect-timeout 1 -s -w "%{ssl_verify_result}" -o /dev/null https://f74091247.sa echo | openssl s_client -connect f74091247.sa:443 2>&1 1>/dev/null
+service hw4 status 
