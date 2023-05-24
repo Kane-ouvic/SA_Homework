@@ -60,7 +60,7 @@ class Storage:
             file_path = f"{self.block_path[i]}"
             file_size = get_file_size(file_path, filename)
             check_blocks_bytes.append(file_size)
-            cmd = f"cat {file_path}/{filename}"
+            cmd = f"cat '{file_path}/{filename}'"
             result = subprocess.run(cmd, shell=True, capture_output=True)
             result_bytes = result.stdout
             # print(result_bytes)
@@ -153,7 +153,7 @@ class Storage:
             real_bytes = int(content)
             option = True
         except:
-            print("error")
+            print("error 1")
         
         # print(content)
         print(option)
@@ -161,24 +161,30 @@ class Storage:
         
         for i in range(settings.NUM_DISKS-1):
             file_path = f"{self.block_path[i]}/{filename}"
-            cmd = f"cat {file_path}"
+            print(file_path)
+            cmd = f"cat '{file_path}'"
+            print(cmd)
             result = subprocess.run(cmd, shell=True, capture_output=True)
             retrieve_bytearray = bytearray(result.stdout)
+            print(len(retrieve_bytearray))
             if option:
                 if i >= real_bytes % (settings.NUM_DISKS-1) and real_bytes % (settings.NUM_DISKS-1) != 0:
+                    
                     try:
                         del retrieve_bytearray[-1]
                     except:
-                        print("error")
+                        print("error 2")
             else:
                 if retrieve_bytearray[-1] == 0:
                     try:
                         del retrieve_bytearray[-1]
                     except:
-                        print("error")
+                        print("error 3")
             retrieve_bytes = bytes(retrieve_bytearray)
             result_byte += retrieve_bytes
+            print("==================")
         
+        print("finalllllllll")
         return result_byte
         
 
@@ -290,7 +296,7 @@ class Storage:
                 filepath = f"{self.block_path[i]}"
                 filesize = get_file_size(filepath, filename)
                 check_blocks_bytes.append(filesize)
-                cmd = f"cat {filepath}/{filename}"
+                cmd = f"cat '{filepath}/{filename}'"
                 result = subprocess.run(cmd, shell=True, capture_output=True)
                 result_bytes = result.stdout
                 check_block_string.append(result_bytes)

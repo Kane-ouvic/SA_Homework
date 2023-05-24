@@ -2,6 +2,7 @@ import schemas
 from fastapi import APIRouter, Response, UploadFile, status, HTTPException
 from storage import storage
 from config import settings
+import urllib.parse
 router = APIRouter()
 
 # filename_list = {}
@@ -32,14 +33,20 @@ async def create_file(file: UploadFile) -> schemas.File:
 async def retrieve_file(filename: str) -> Response:
     # TODO: Add headers to ensure the filename is displayed correctly
     #       You should also ensure that enables the judge to download files directly
-    # print("testtttt=====================\n");
+    # return_filename = urllib.parse.quote(filename)
+    print("testtttt=====================\n");
+    print(filename)
     if await storage.file_integrity(filename) == False:
         await storage.delete_file(filename)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="File not found")
+    
+    
+    print("testtttt=====================\n");
+    return_filename = urllib.parse.quote(filename)
     return Response(
         await storage.retrieve_file(filename),
         media_type="application/octet-stream",
-        headers={"Content-Disposition": f'attachment; filename={filename}'},
+        headers={"Content-Disposition": f'attachment; filename={return_filename}'},
     )
 
 
