@@ -1,0 +1,17 @@
+5783326c2205d0795d31a1048f7bf5af2ba97f363c97c03c14c663d1ba34b279
+5783326c2205d0795d31a1048f7bf5af2ba97f363c97c03c14c663d1ba34b279
+df01aeb89c0bd133081b0c2af1feaeb59164ac208bdec2587689840d0962fed2
+df01aeb89c0bd133081b0c2af1feaeb59164ac208bdec2587689840d0962fed2
+d5b8cd3428f9e6e2390989b668bd87f8796189ac43e451c44354f8b45fb43c3c
+d5b8cd3428f9e6e2390989b668bd87f8796189ac43e451c44354f8b45fb43c3c
+
+
+
+
+
+
+python3 -c "import requests; print(requests.get('https://chummy.sa').text)" echo | openssl s_client -connect f74091247.sa:443 2>&11>/dev/null
+
+
+result: {"name": "NYaMK.mp4", "size": 442276, "checksum": "1851344169139454c385485c7f1af4b1", "content": 
+ans: {"name": "NYaMK.mp4", "size": 442276, "checksum": "1851344169139454c385485c7f1af4b1", "content": 

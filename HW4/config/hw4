@@ -53,6 +53,9 @@ hw4_stop()
     # sysrc -f /etc/rc.conf hw4_enable="NO"
     kill `cat ${pidfile}`
     rm ${pidfile}
+    rm ${logfile}
+    rm -r /var/raid/*
+    rm -r /tmp/filename_list
 }
 
 hw4_restart()

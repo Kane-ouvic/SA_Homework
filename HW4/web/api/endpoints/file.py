@@ -33,10 +33,13 @@ async def retrieve_file(filename: str) -> Response:
     # TODO: Add headers to ensure the filename is displayed correctly
     #       You should also ensure that enables the judge to download files directly
     # print("testtttt=====================\n");
+    if await storage.file_integrity(filename) == False:
+        await storage.delete_file(filename)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="File not found")
     return Response(
         await storage.retrieve_file(filename),
         media_type="application/octet-stream",
-        headers={},
+        headers={"Content-Disposition": f'attachment; filename={filename}'},
     )
 
 

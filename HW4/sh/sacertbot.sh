@@ -15,6 +15,14 @@ mkdir $dir
 cd $dir
 username=$(curl -s ca.sa/username)
 
+if [ "$username" == "" ]
+then
+    echo "Please connect your VPN and check your network." 1>&2
+    cd $pwd
+    rm -r $dir
+    exit 1
+fi
+
 openssl genrsa -out ca.key 2048 2>/dev/null
 openssl req -new -key ca.key -out ca.req -subj "/C=TW/ST=TW/L=TAINAN/O=NCKU/CN=$username" 2>/dev/null
 state=$(curl -s -o /dev/null -w "%{http_code}" ca.sa/sign/ca -F 'req=@ca.req')
