@@ -1,0 +1,12 @@
+# ca extensions file
+
+basicConstraints = critical,CA:true
+
+subjectKeyIdentifier=hash
+
+authorityKeyIdentifier=keyid:always,issuer
+
+keyUsage = cRLSign, keyCertSign
+
+authorityInfoAccess = caIssuers;URI:http://ca.sa/ca
+crlDistributionPoints = URI:http://ca.sa/crl

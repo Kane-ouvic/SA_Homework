@@ -1,0 +1,9 @@
+# ca extensions file
+
+basicConstraints = CA:false
+
+subjectKeyIdentifier=hash
+
+authorityKeyIdentifier=keyid,issuer:always
+extendedKeyUsage = serverAuth
+keyUsage = digitalSignature,keyEncipherment

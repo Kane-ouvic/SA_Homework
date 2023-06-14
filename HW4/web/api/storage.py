@@ -14,8 +14,9 @@ import subprocess
 
 # filename_list = {}
 
+
 class Storage:
-    def __init__(self, is_test: bool):     
+    def __init__(self, is_test: bool):
         self.block_path: List[Path] = [
             Path("/var/raid") / f"{settings.FOLDER_PREFIX}-{i}-test"
             if is_test
@@ -53,8 +54,7 @@ class Storage:
         check_block_string = []
         calculate_xor_bytes = bytes()
         check_xor_bytes = bytes()
-        
-        
+
         # 1. all data blocks must exist
         for i in range(settings.NUM_DISKS):
             file_path = f"{self.block_path[i]}"
@@ -70,23 +70,23 @@ class Storage:
             else:
                 print("檔案不存在")
                 return False
-                
+
         # 2. size of all data blocks must be equal
         # print(check_blocks_bytes)
         for i in range(settings.NUM_DISKS - 1):
-            if check_blocks_bytes[i] != check_blocks_bytes[i+1]:
+            if check_blocks_bytes[i] != check_blocks_bytes[i + 1]:
                 print("檔案大小不一致")
                 return False
-        
+
         check_xor_bytes = check_block_string[-1]
         check_block_string = check_block_string[:-1]
-        
+
         # print(check_blocks_bytes)
         # print(check_xor_string)
         # print(check_block_string)
         # print(check_blocks_bytes)
         # check xor result
-        
+
         convert_bytes_num = len(check_block_string[0])
         xor_result = b'\x00' * convert_bytes_num
         for s in check_block_string:
@@ -95,12 +95,12 @@ class Storage:
         # print(convert_bytes_num)
         # calculate_xor_string = xor_result.to_bytes(convert_bytes_num, 'big').decode()
         # print(calculate_xor_string)
-        
+
         if xor_result != check_xor_bytes:
             return False
         else:
             print("檔案完整")
-        
+
         return True
 
     async def create_file(self, file: UploadFile) -> schemas.File:
@@ -110,9 +110,9 @@ class Storage:
         file_name = file.filename
         file_content_type = file.content_type
         insert_blocks = split_string_xor(read_bytes, settings.NUM_DISKS)
-        
+
         # split file into n blocks
-        
+
         # create file in block
         for path in self.block_path:
             print(f"create_file: {path}")
@@ -123,7 +123,7 @@ class Storage:
             myfile = Path("/tmp/filename_list") / filename_combined
             myfile.touch()
             os.chmod(myfile, 0o777)
-        
+
         for i in range(settings.NUM_DISKS):
             file_path = f"{self.block_path[i]}/{file_name}"
             file = open(file_path, "wb")
@@ -131,7 +131,7 @@ class Storage:
             file_path = f"/tmp/filename_list/{file_name}.log"
             file = open(file_path, "w")
             file.write(str(len(read_bytes)))
-        
+
         return schemas.File(
             name=file_name,
             size=len(read_bytes),
@@ -142,7 +142,7 @@ class Storage:
 
     async def retrieve_file(self, filename: str) -> bytes:
         # TODO: retrieve the binary data of file
-        option = False;
+        option = False
         result_byte = bytes()
         file_path = f"/tmp/filename_list/{filename}.log"
         real_bytes = 0
@@ -154,22 +154,21 @@ class Storage:
             option = True
         except:
             print("error 1")
-        
+
         # print(content)
         print(option)
-        
-        
-        for i in range(settings.NUM_DISKS-1):
+
+        for i in range(settings.NUM_DISKS - 1):
             file_path = f"{self.block_path[i]}/{filename}"
-            print(file_path)
+            # print(file_path)
             cmd = f"cat '{file_path}'"
             print(cmd)
             result = subprocess.run(cmd, shell=True, capture_output=True)
             retrieve_bytearray = bytearray(result.stdout)
-            print(len(retrieve_bytearray))
+            # print(len(retrieve_bytearray))
             if option:
-                if i >= real_bytes % (settings.NUM_DISKS-1) and real_bytes % (settings.NUM_DISKS-1) != 0:
-                    
+                if i >= real_bytes % (settings.NUM_DISKS - 1) and real_bytes % (settings.NUM_DISKS - 1) != 0:
+
                     try:
                         del retrieve_bytearray[-1]
                     except:
@@ -182,24 +181,22 @@ class Storage:
                         print("error 3")
             retrieve_bytes = bytes(retrieve_bytearray)
             result_byte += retrieve_bytes
-            print("==================")
-        
-        print("finalllllllll")
+            # print("==================")
+
+        # print("finalllllllll")
         return result_byte
-        
 
         # return b"".join("m3ow".encode() for _ in range(100))
 
     async def update_file(self, file: UploadFile) -> schemas.File:
         # TODO: update file's data block and parity block and return it's schema
-        
+
         # delete
         for path in self.block_path:
             print(f"remove_file: {path}")
             myfile = Path(path) / file.filename
             os.remove(myfile)
-            
-        
+
         read_bytes = await file.read()
         file_name = file.filename
         file_content_type = file.content_type
@@ -213,7 +210,7 @@ class Storage:
             myfile = Path("/tmp/filename_list") / filename_combined
             myfile.touch()
             os.chmod(myfile, 0o777)
-        
+
         for i in range(settings.NUM_DISKS):
             file_path = f"{self.block_path[i]}/{file_name}"
             file = open(file_path, "wb")
@@ -247,22 +244,21 @@ class Storage:
                 print('檔案不存在')
 
         # del filename_list[filename]
-        
+
         pass
 
     async def fix_block(self, block_id: int) -> None:
         # TODO: fix the broke block by using rest of block
-        
-        print("test")
+
+        # print("test")
         # 確認哪一塊損壞
-        
+
         # 用其他的block去修復
-        
+
         # 修復後的block放回去
         file_paths = {}
         filename_list = {}
-        
-        
+
         for i in range(settings.NUM_DISKS):
             if(i == block_id):
                 continue
@@ -272,22 +268,20 @@ class Storage:
                     filename_list[filename] = 1
                 else:
                     filename_list[filename] += 1
-            
-            
-        print(filename_list)
-        
-        
+
+        # print(filename_list)
+
         restore_files = []
         final_restore_files = []
-        
+
         for key, value in filename_list.items():
-            if value == settings.NUM_DISKS-1:
+            if value == settings.NUM_DISKS - 1:
                 restore_files.append(key)
 
-        print(restore_files)
+        # print(restore_files)
 
         for filename in restore_files:
-            is_restore = True;
+            is_restore = True
             check_blocks_bytes = []
             check_block_string = []
             for i in range(settings.NUM_DISKS):
@@ -300,10 +294,10 @@ class Storage:
                 result = subprocess.run(cmd, shell=True, capture_output=True)
                 result_bytes = result.stdout
                 check_block_string.append(result_bytes)
-            for i in range(len(check_blocks_bytes)-1):
-                if check_blocks_bytes[i] != check_blocks_bytes[i+1]:
+            for i in range(len(check_blocks_bytes) - 1):
+                if check_blocks_bytes[i] != check_blocks_bytes[i + 1]:
                     print("檔案大小不一致")
-                    is_restore = False;
+                    is_restore = False
             if is_restore:
                 # xor 還原
                 final_restore_files.append(filename)
@@ -317,11 +311,11 @@ class Storage:
                 restore_filepath = f"{filepath}/{filename}"
                 file = open(restore_filepath, "wb")
                 file.write(xor_result)
-                
+
                 # 將檔案寫入 損毀的block
-                
-        print(final_restore_files)
-                
+
+        # print(final_restore_files)
+
         # for file_name in file_paths[0]:
         #     is_restore = True;
         #     check_blocks_bytes = []
@@ -330,7 +324,7 @@ class Storage:
         #             continue
         #         file_path = f"{self.block_path[i]}"
         #         file_size = get_file_size(file_path, file_name)
-                
+
         #         if file_size is not None:
         #             print(f"檔案存在，大小為 {file_size} bytes")
         #             check_blocks_bytes.append(file_size)
@@ -346,14 +340,11 @@ class Storage:
         #             continue
         #     if is_restore:
         #         restore_files.append(file_name)
-            
-        print("================================")
-        print(restore_files)        
-        print(restore_files)
+
+        # print("================================")
+        # print(restore_files)
+        # print(restore_files)
         pass
 
 
 storage: Storage = Storage(is_test="pytest" in sys.modules)
-
-
-
